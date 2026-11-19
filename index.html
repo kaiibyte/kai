@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#eee7dc">
+<title>KAI — Personal Archive</title>
+
+<style>
+:root {
+  --paper:#eee7dc;
+  --ink:#30251f;
+  --muted:#8a796b;
+  --line:#d7cabb;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:Georgia,serif;
+}
+
+main {
+  max-width:780px;
+  margin:auto;
+  padding:34px 22px 70px;
+}
+
+.top {
+  display:flex;
+  justify-content:space-between;
+  font:10px Arial,sans-serif;
+  letter-spacing:2px;
+  color:var(--muted);
+}
+
+.hero {
+  padding:70px 0 48px;
+  border-bottom:1px solid var(--line);
+}
+
+.eyebrow,.small {
+  font:10px Arial,sans-serif;
+  letter-spacing:3px;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+
+h1 {
+  font-size:clamp(58px,13vw,104px);
+  font-weight:400;
+  letter-spacing:-5px;
+  line-height:.9;
+  margin:18px 0;
+}
+
+.intro {
+  font-size:17px;
+  color:#756457;
+  line-height:1.7;
+}
+
+.section {
+  padding:38px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.section-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  margin-bottom:20px;
+}
+
+h2 {
+  font-size:27px;
+  font-weight:400;
+  margin:0;
+}
+
+.love-list {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.love-card {
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.22);
+  padding:20px;
+  text-align:left;
+  color:var(--ink);
+  font:22px Georgia,serif;
+  min-height:112px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.love-card:hover {
+  background:#e5d9ca;
+  transform:translateY(-2px);
+}
+
+.love-card span {
+  display:block;
+  font:10px Arial,sans-serif;
+  letter-spacing:2px;
+  color:var(--muted);
+  margin-bottom:18px;
+}
+
+.arrow {
+  float:right;
+  color:#9b8674;
+}
+
+.bio-details {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:20px;
+}
+
+.bio-details p {
+  margin:0;
+  padding:15px;
+  border:1px solid var(--line);
+  font-size:15px;
+  line-height:1.5;
+}
+
+.bio-details span {
+  display:block;
+  font:9px Arial,sans-serif;
+  letter-spacing:1.5px;
+  color:var(--muted);
+  margin-bottom:7px;
+}
+
+footer {
+  padding:28px 0;
+  color:var(--muted);
+  font:10px Arial,sans-serif;
+  letter-spacing:2px;
+}
+
+.modal {
+  position:fixed;
+  inset:0;
+  background:rgba(24,19,16,.82);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:5;
+}
+
+.modal.show { display:flex; }
+
+.modal-card {
+  position:relative;
+  width:min(680px,100%);
+  max-height:90vh;
+  background:var(--paper);
+  padding:12px;
+  border-radius:16px;
+}
+
+.modal-card img,
+.modal-card video {
+  display:block;
+  width:100%;
+  max-height:78vh;
+  object-fit:contain;
+  border-radius:9px;
+  background:#181818;
+}
+
+.close {
+  position:absolute;
+  right:19px;
+  top:19px;
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:rgba(25,22,20,.8);
+  color:white;
+  font-size:24px;
+  cursor:pointer;
+  z-index:2;
+}
+
+@media(max-width:520px) {
+  main { padding:25px 18px 50px; }
+  .hero { padding:60px 0 38px; }
+  .love-card { font-size:19px; padding:15px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ENTER ARCHIVE INTRO -->
+<div id="entrance" style="
+position:fixed;
+inset:0;
+background:#eee7dc;
+z-index:20;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:25px;
+">
+  <div>
+    <div class="eyebrow">A PERSONAL ARCHIVE</div>
+    <h1 style="font-size:65px">KAI.</h1>
+    <p style="color:#8a796b">Welcome to my little world.</p>
+    <button onclick="enterArchive()" style="
+      margin-top:25px;
+      padding:15px 28px;
+      border:1px solid #765b48;
+      background:transparent;
+      color:#30251f;
+      letter-spacing:2px;
+      cursor:pointer;
+    ">ENTER ARCHIVE ↗</button>
+  </div>
+</div>
+
+<main>
+
+<div class="top">
+  <span>KAI / PERSONAL ARCHIVE</span>
+  <span>EST. 2026</span>
+</div>
+
+<header class="hero">
+  <div class="eyebrow">A little place on the internet</div>
+  <h1>hello,<br>I'm Kai.</h1>
+  <p class="intro">
+    A collection of things I like, moments I keep,
+    and little pieces of me.
+  </p>
+</header>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Things I love</h2>
+    <span class="small">01 — 03</span>
+  </div>
+
+  <div class="love-list">
+
+    <button class="love-card" onclick="openModal('mlbb')">
+      <span>01 / GAME</span>
+      Mobile Legends <b class="arrow">↗</b>
+    </button>
+
+    <button class="love-card" onclick="openModal('manhwa')">
+      <span>02 / WATCH</span>
+      Manhwa <b class="arrow">↗</b>
+    </button>
+
+    <button class="love-card" onclick="playRandom()">
+      <span>03 / LISTEN</span>
+      Music <b class="arrow">↗</b>
+    </button>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>About me</h2>
+    <span class="small">GET TO KNOW ME</span>
+  </div>
+
+  <p class="intro">
+    I'm Kai, a tuff person from the Philippines.
+    I live in Ilocos Norte.
+  </p>
+
+  <div class="bio-details">
+    <p><span>PRONOUNS</span>He / Him</p>
+    <p><span>BIRTHDAY</span>June 18</p>
+    <p><span>PERSONALITY</span>Introvert</p>
+    <p><span>NATIONALITY</span>Filipino 🇵🇭</p>
+    <p><span>AKA</span>Prince</p>
+    <p><span>FAVOURITE COLOURS</span>Brown &amp; Red</p>
+    <p><span>FAVOURITE FOOD</span>Jollibee fried chicken</p>
+    <p><span>FAVOURITE PERSON TO PLAY WITH</span>Baron (DarkSystem)</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>What makes me happy</h2>
+  </div>
+  <p class="intro">
+    Money, music, games, food and milk tea.
+  </p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Likes &amp; dislikes</h2>
+  </div>
+
+  <div class="bio-details">
+    <p><span>LIKES</span>Food, food, food, food, food.</p>
+    <p><span>DISLIKES</span>Homophobics, annoying people and toxic people.</p>
+  </div>
+</section>
+
+<footer>Made with care · KAI</footer>
+
+</main>
+
+<!-- IMAGE AND VIDEO POPUP -->
+<div class="modal" id="modal" onclick="outsideClose(event)">
+  <div class="modal-card">
+    <button class="close" onclick="closeModal()">×</button>
+
+    <img
+      id="mlbbImage"
+      src="assets/mlbb.jpg"
+      alt="Mobile Legends"
+      style="display:none">
+
+    <video
+      id="manhwaVideo"
+      src="assets/manhwa.mp4"
+      controls
+      playsinline
+      style="display:none">
+    </video>
+  </div>
+</div>
+
+<!-- HIDDEN MUSIC PLAYER -->
+<audio id="musicPlayer" preload="none"></audio>
+
+<script>
+function enterArchive() {
+  document.getElementById("entrance").style.display = "none";
+}
+
+const songs = [
+  "fortnight.mp3",
+  "about-you.mp3",
+  "christmas.mp3",
+  "laufey.mp3",
+  "secret-door.mp3"
+];
+
+let previousSong = -1;
+
+function playRandom() {
+  let n = Math.floor(Math.random() * songs.length);
+
+  if (n === previousSong) {
+    n = (n + 1) % songs.length;
+  }
+
+  previousSong = n;
+
+  const player = document.getElementById("musicPlayer");
+
+  player.pause();
+  player.src = "assets/" + songs[n];
+  player.currentTime = 0;
+
+  player.play().catch(() => {
+    alert("Please check that your MP3 files are uploaded to the assets folder.");
+  });
+}
+
+function openModal(which) {
+  const modal = document.getElementById("modal");
+  const img = document.getElementById("mlbbImage");
+  const video = document.getElementById("manhwaVideo");
+
+  modal.classList.add("show");
+
+  img.style.display = which === "mlbb" ? "block" : "none";
+  video.style.display = which === "manhwa" ? "block" : "none";
+
+  if (which === "manhwa") {
+    video.currentTime = 0;
+    video.play().catch(() => {});
+  }
+}
+
+function closeModal() {
+  const video = document.getElementById("manhwaVideo");
+
+  video.pause();
+  video.currentTime = 0;
+
+  document.getElementById("modal").classList.remove("show");
+}
+
+function outsideClose(event) {
+  if (event.target.id === "modal") {
+    closeModal();
+  }
+}
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeModal();
+});
+</script>
+
+</body>
+</html>
