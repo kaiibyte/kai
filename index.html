@@ -40,7 +40,7 @@ $('completed').textContent=heroes.filter(h=>number(h.current)>=Math.max(1,number
 if(!heroes.length){root.innerHTML='<div class="empty" style="grid-column:1/-1"><b>No heroes yet</b>Tap “Add hero” to enter your first MMR.</div>';return;}
 root.innerHTML=heroes.map(h=>{
 const current=number(h.current),target=Math.max(1,number(h.target)),pct=Math.min(100,current/target*100),left=Math.max(0,target-current);
-return '<article class="hero-card"><div class="hero-top"><div><div class="hero-name">'+safeText(h.name)+'</div><div class="sub">'+(current>=target?'✦ Target reached':'MMR progress')+'</div></div><button type="button" class="danger" data-delete="'+safeText(h.id)+'">Delete</button></div><div class="numbers"><div><span>CURRENT MMR</span><strong>'+current.toLocaleString()+'</strong></div><div style="text-align:right"><span>TARGET MMR</span><strong>'+target.toLocaleString()+'</strong></div></div><div class="progress"><div class="bar" style="width:'+pct+'%"></div></div><div class="progress-line"><b>'+pct.toFixed(1)+'% complete</b><span class="remaining">'+(left?left.toLocaleString()+' MMR to go':'Goal achieved!')+'</span></div><div class="actions"><button type="button" class="secondary" data-edit="'+safeText(h.id)+'">Edit MMR</button></div></article>';
+return '<article class="hero-card"><div class="hero-top"><div><div class="hero-name">'+safeText(h.name)+'</div><div class="sub">'+(current>=target?'✦ Target reached':'MMR progress')+'</div></div><button type="button" class="danger" data-delete="'+safeText(h.id)+'">Delete</button></div><div class="numbers"><div><span>CURRENT MMR</span><strong>'+current.toLocaleString()+'</strong></div><div style="text-align:right"><span>TARGET MMR</span><strong>'+target.toLocaleString()+'</strong></div></div><div class="progress"><div class="bar" style="width:'+pct+'%"></div></div><div class="progress-line"><b>'+pct.toFixed(1)+'% complete</b><span class="remaining">'+(left?left.toLocaleString()+' MMR to go':'Goal achieved!')+'</span></div><div class="actions"><button type="button" class="secondary" data-adjust="add" data-id="'+safeText(h.id)+'">＋ Add MMR</button><button type="button" class="secondary" data-adjust="minus" data-id="'+safeText(h.id)+'">− Subtract</button><button type="button" class="secondary" data-edit="'+safeText(h.id)+'">Edit</button></div></article>';
 }).join('');
 }
 function openForm(hero){
@@ -66,8 +66,10 @@ else{const newId=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():String(D
 persist();render();closeForm();showToast('MMR saved successfully!');
 });
 $('heroes').addEventListener('click',event=>{
+const adjust=event.target.closest('[data-adjust]');
 const edit=event.target.closest('[data-edit]');
 const del=event.target.closest('[data-delete]');
+if(adjust){const hero=heroes.find(h=>String(h.id)===String(adjust.dataset.id));if(!hero)return;const amount=window.prompt(adjust.dataset.adjust==='add'?'How much MMR did you gain?':'How much MMR did you lose?','10');if(amount===null)return;const value=Number(amount);if(!Number.isFinite(value)||value<=0){showToast('Enter a valid amount');return;}hero.current=Math.max(0,number(hero.current)+(adjust.dataset.adjust==='add'?Math.floor(value):-Math.floor(value)));persist();render();showToast(adjust.dataset.adjust==='add'?'Great job! MMR added ✨':'MMR subtracted');return;}
 if(edit){const hero=heroes.find(h=>String(h.id)===String(edit.dataset.edit));if(hero)openForm(hero);return;}
 if(del){const hero=heroes.find(h=>String(h.id)===String(del.dataset.delete));if(!hero)return;if(window.confirm('Delete '+hero.name+' from your tracker?')){heroes=heroes.filter(h=>String(h.id)!==String(hero.id));persist();render();showToast('Hero deleted');}}
 });
